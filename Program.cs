@@ -6,18 +6,15 @@
         {
             Console.WriteLine("Welcome to the Snake and Ladder game");
             int position = 0;
+            Random rand = new Random();
 
             while (position < 100)
             {
                 Console.WriteLine("Current position: " + position);
-                Console.Write("Enter dice roll (1-6): ");
-                int roll = int.Parse(Console.ReadLine());
+                Console.Write("Enter dice roll: ");
 
-                if (roll < 1 || roll > 6)
-                {
-                    Console.WriteLine("Invalid input. Please enter a number between 1 and 6.");
-                    continue;
-                }
+                int roll = rand.Next(1, 7);
+                Console.WriteLine("You rolled a " + roll);
 
                 position += roll;
 
