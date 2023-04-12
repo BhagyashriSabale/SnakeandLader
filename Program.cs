@@ -22,33 +22,27 @@
                     case 0:
                         Console.WriteLine("No play! You stay at position " + position);
                         break;
+
                     case 1:
-                        int ladderPosition = position + roll;
-                        if (ladderPosition <= 100)
-                        {
-                            Console.WriteLine("You found a ladder! Climb up to position " + ladderPosition);
-                            position = ladderPosition;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Oops! You overshot the finish line. Try again.");
-                        }
+                         int ladder = rand.Next(1, 7);
+                       
+                            Console.WriteLine("You found a ladder! Climb up to position " + position);
+                        position += ladder;
                         break;
+                       
                     case 2:
-                        int snakePosition = position - roll;
-                        if (snakePosition >= 0)
-                        {
-                            Console.WriteLine("You got bitten by a snake! Go back to position " + snakePosition);
-                            position = snakePosition;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Oops! You can't go behind the starting position. Try again.");
-                        }
+                        int snake = rand.Next(1, 7);
+                        Console.WriteLine("You got bitten by a snake! Go back by " + snake + " positions.");
+                        position -= snake;
                         break;
                 }
 
-                if (position == 100)
+                if (position < 0)
+                {
+                    Console.WriteLine("Oops! You moved below position 0. Starting again from position 0.");
+                    position = 0;
+                }
+                else if (position == 100)
                 {
                     Console.WriteLine("Congratulations! You reached the finish line!");
                     break;
