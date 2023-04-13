@@ -5,95 +5,59 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to the Snake and Ladder game");
-            int position = 0;
-            int diceRolls = 0;
+            int[] positions = { 0, 0 };
+            int diceRollCount = 0;
+            int currentPlayer = 0;
+            bool isWin = false;
             Random rand = new Random();
 
-            while (position < 100)
+            while (!isWin)
             {
-                Console.WriteLine("Current position: " + position);
+                Console.WriteLine("Player " + (currentPlayer + 1) + " turn:");
+                Console.WriteLine("Current position: " + positions[currentPlayer]);
                 Console.Write("Enter dice roll: ");
 
                 int roll = rand.Next(1, 7);
                 Console.WriteLine("You rolled a " + roll);
-                diceRolls++;
 
-                position += roll;
 
-                if (position == 14)
+                positions[currentPlayer] += roll;
+
+                if (positions[currentPlayer] == 14 || positions[currentPlayer] == 23 || positions[currentPlayer] == 45 || positions[currentPlayer] == 67 || positions[currentPlayer] == 75)
                 {
-                    Console.WriteLine("You got bitten by a snake! Go back to position 4.");
-                    position = 4;
+                    Console.WriteLine("Player " + (currentPlayer + 1) + " got bitten by a snake! Go back to the previous position.");
+                    positions[currentPlayer] -= roll;
                 }
-                else if (position == 23)
+                else if (positions[currentPlayer] == 99)
                 {
-                    Console.WriteLine("You got bitten by a snake! Go back to position 7.");
-                    position = 7;
+                    Console.WriteLine("Congratulations! Player " + (currentPlayer + 1) + " reached the finish line!");
+                    isWin = true;
                 }
-                else if (position == 45)
+                else if (positions[currentPlayer] > 100)
                 {
-                    Console.WriteLine("You got bitten by a snake! Go back to position 33.");
-                    position = 33;
+                    Console.WriteLine("Oops! Player " + (currentPlayer + 1) + " overshot the finish line. Try again.");
+                    positions[currentPlayer] -= roll;
                 }
-                else if (position == 67)
+                else if (positions[currentPlayer] == 8 || positions[currentPlayer] == 21 || positions[currentPlayer] == 43 || positions[currentPlayer] == 50 || positions[currentPlayer] == 62 || positions[currentPlayer] == 66 || positions[currentPlayer] == 80)
                 {
-                    Console.WriteLine("You got bitten by a snake! Go back to position 54.");
-                    position = 54;
+                    Console.WriteLine("Player " + (currentPlayer + 1) + " found a ladder! Climb up to the next position.");
+                    positions[currentPlayer] += roll;
                 }
-                else if (position == 75)
+
+                Console.WriteLine("Player " + (currentPlayer + 1) + " current position: " + positions[currentPlayer]);
+
+                if (!isWin)
                 {
-                    Console.WriteLine("You got bitten by a snake! Go back to position 42.");
-                    position = 42;
+                    // switch to the other player
+                    currentPlayer = (currentPlayer == 0) ? 1 : 0;
                 }
-                else if (position == 99)
-                {
-                    Console.WriteLine("Congratulations! You reached the finish line!");
-                    break;
-                }
-                else if (position > 100)
-                {
-                    Console.WriteLine("Oops! You overshot the finish line. Stay in the same position.");
-                    position -= roll;
-                }
-                else if (position == 8)
-                {
-                    Console.WriteLine("You found a ladder! Climb up to position 26.");
-                    position = 26;
-                }
-                else if (position == 21)
-                {
-                    Console.WriteLine("You found a ladder! Climb up to position 42.");
-                    position = 42;
-                }
-                else if (position == 43)
-                {
-                    Console.WriteLine("You found a ladder! Climb up to position 63.");
-                    position = 63;
-                }
-                else if (position == 50)
-                {
-                    Console.WriteLine("You found a ladder! Climb up to position 69.");
-                    position = 69;
-                }
-                else if (position == 62)
-                {
-                    Console.WriteLine("You found a ladder! Climb up to position 81.");
-                    position = 81;
-                }
-                else if (position == 66)
-                {
-                    Console.WriteLine("You found a ladder! Climb up to position 87.");
-                    position = 87;
-                }
-                else if (position == 80)
-                {
-                    Console.WriteLine("You found a ladder! Climb up to position 98.");
-                    position = 98;
-                }
-       
+
+                // count the dice rolls
+                diceRollCount++;
+
             }
-            Console.WriteLine("You took " + diceRolls + " rolls to reach the finish line.");
-            Console.WriteLine("Your final position is: " + position);
+            Console.WriteLine("Player " + (currentPlayer + 1) + " won the game!");
+            Console.WriteLine("Total number of dice rolls: " + diceRollCount);
 
         }
     }
