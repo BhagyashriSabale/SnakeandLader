@@ -6,6 +6,7 @@
         {
             Console.WriteLine("Welcome to the Snake and Ladder game");
             int position = 0;
+            int diceRolls = 0;
             Random rand = new Random();
 
             while (position < 100)
@@ -15,6 +16,7 @@
 
                 int roll = rand.Next(1, 7);
                 Console.WriteLine("You rolled a " + roll);
+                diceRolls++;
 
                 position += roll;
 
@@ -88,16 +90,10 @@
                     Console.WriteLine("You found a ladder! Climb up to position 98.");
                     position = 98;
                 }
-                else if (position < 0)
-                {
-                    Console.WriteLine("You went below position 0! Starting over from position 0.");
-                    position = 0;
-                }
-                else
-                {
-                    Console.WriteLine("No ladder or snake found. Stay in the same position.");
-                    }
+       
             }
+            Console.WriteLine("You took " + diceRolls + " rolls to reach the finish line.");
+            Console.WriteLine("Your final position is: " + position);
 
         }
     }
